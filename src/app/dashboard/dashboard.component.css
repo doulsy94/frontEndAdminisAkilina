@@ -1,9 +1,8 @@
-
-
 table {
     width: 100%;
     border-collapse: collapse;
   }
+  
   
   .header_fixed {
     max-height: 100vh;
@@ -63,3 +62,6 @@ table {
     color: #e6e7e8;
   }
   
+  .bg-light.text-center.rounded.p-4 {
+    margin-bottom: 30px;
+}

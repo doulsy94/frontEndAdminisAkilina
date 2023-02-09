@@ -1,0 +1,310 @@
+<div class="container-fluid" style="overflow: hidden">
+  <div class="row flex-nowrap">
+    <div
+      id="sidebar"
+      class="col-auto sidebar collapse collapse-horizontal show"
+      *ngIf="menuBureau"
+      style="height: 100vh"
+    >
+      <app-menu></app-menu>
+      <!-- </div> -->
+    </div>
+    <main
+      class="col"
+      style="height: 100vh; overflow: scroll; overflow-x: hidden"
+    >
+      <nav
+        class="bg-danger navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0"
+        style=""
+      >
+        <h1 style="width: 20px"></h1>
+        <a
+          href="#"
+          class="sidebar-toggler flex-shrink-0"
+          data-bs-toggle="collapse"
+          data-bs-target="#sidebar"
+          aria-expanded="false"
+          (click)="afficheMenuMobile()"
+          aria-controls="collapseWidthExample"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+        <form class="d-none d-md-flex ms-4">
+          <input
+            class="form-control border-0"
+            type="search"
+            placeholder="Search"
+          />
+          <i class="bx bx-search icon" style="font-size: 35px"></i>
+        </form>
+        <div class="d-flex justify-content-end w-100">
+          <app-navbar></app-navbar>
+        </div>
+      </nav>
+      <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+          <div class="col-sm-6 col-xl-3">
+            <div
+              class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+            >
+              <img
+                src="../../assets/ministere2.png"
+                height="50"
+                width="50"
+                style="text-align: center; padding-top: 5px"
+                alt=""
+                srcset=""
+              />
+              <div class="ms-3">
+                <p class="mb-2">Total Ministere</p>
+                <h6 class="mb-0">{{ nbMinis }}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div
+              class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+            >
+              <img
+                src="../../assets/idee1.png"
+                height="50"
+                width="50"
+                style="text-align: center; padding-top: 5px"
+                alt=""
+                srcset=""
+              />
+              <div class="ms-3">
+                <p class="mb-2">Total Idees</p>
+                <h6 class="mb-0">{{ nbIdee }}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div
+              class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+            >
+              <img
+                src="../../assets/comment.png"
+                height="50"
+                width="50"
+                style="text-align: center; padding-top: 5px"
+                alt=""
+                srcset=""
+              />
+              <div class="ms-3">
+                <p class="mb-2">Total Commentaires</p>
+                <h6 class="mb-0">{{ nbComment }}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div
+              class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+            >
+              <i class="bx bxs-user-circle fa-3x" style="color: black"></i>
+              <div class="ms-3">
+                <p class="mb-2">Total Utilisateur</p>
+                <h6 class="mb-0">{{ nbUser }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="container-fluid pt-4 px-4"
+        style="margin-left: -2.2%; width: 104%"
+      >
+        <div class="row g-4">
+          <div class="col-sm-12 col-xl-8">
+            <div class="bg-light text-center rounded p-4">
+              <div
+                class="d-flex align-items-center justify-content-between mb-4"
+              >
+                <h6 class="mb-0 py-1">La liste des ministères</h6>
+              </div>
+              <div class="header_fixed py-2">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Image</th>
+                      <th>Libelle</th>
+                      <th>Description</th>
+                      <th>Action</th>
+
+                      <!-- <th>Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let minist of ministere; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td><img src="{{ minist.image }}" alt="" /></td>
+                      <td>{{ minist.libelle }}</td>
+                      <td>{{ minist.description }}</td>
+                      <td>
+                        <div class="col">
+                          <i
+                            class="bi bi-trash3"
+                            style="color: red; font-size: 20px"
+                          ></i>
+                        </div>
+                      </td>
+                      <!-- <td><button>View</button></td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-xl-4">
+            <div class="bg-light text-center rounded">
+              <div class="h-100 bg-light rounded p-3">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-2"
+                >
+                  <h6 class="mb-0">Utilisateur recents</h6>
+                  <a href="">Voir plus</a>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center pt-3 py-3">
+                  <img
+                    class="rounded-circle flex-shrink-0"
+                    src="../../assets/logo8.png"
+                    alt=""
+                    style="width: 40px; height: 40px"
+                  />
+                  <div class="w-100 ms-3">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="d-flex align-items-center pt-3 py-3">
+                    <img class="rounded-circle flex-shrink-0" src="../../assets/logo8.png" alt=""
+                      style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-0">Jhon Doe</h6>
+                      </div>
+                    </div>
+                  </div> -->
+
+      <div
+        class="container-fluid pt-4 px-4"
+        style="margin-left: -2.2%; width: 104%"
+      >
+        <div class="row g-4">
+          <div class="col-sm-12 col-xl-8">
+            <div class="bg-light text-center rounded p-4">
+              <div
+                class="d-flex align-items-center justify-content-between mb-4"
+              >
+                <h6 class="mb-0 py-1">La liste des utilisateurs</h6>
+
+                <div class="header_fixed py-2">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>Image</th>
+                        <th>Username</th>
+                        <th>Numero</th>
+                        <th>Email</th>
+                        <th>Adresse</th>
+                        <!-- <th>Action</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let us of users; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td><img src="{{ us.imageuser }}" alt="" /></td>
+                        <td>{{ us.username }}</td>
+                        <td>{{ us.numero }}</td>
+                        <td>{{ us.email }}</td>
+                        <td>{{ us.addresse }}</td>
+                        <!-- <td><button>View</button></td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <app-footer></app-footer> -->
+    </main>
+  </div>
+</div>

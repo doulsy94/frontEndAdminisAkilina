@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h3 align="center" style="margin-left: auto; margin-right: auto; color: white;">Connexion!</h3>
+          </div>
+          <div *ngIf="f.submitted && isLoginFailed" class="erreur">
+            &nbsp; Mot de passe ou emailOrNumero incorrect
+          </div>
+          <div class="erreur" *ngIf="emailOrNumero.errors && f.submitted" class="invalid-feedback" class="erreur">
+            &nbsp; Champ Email ou numero obligatoire !!
+          </div>
+          <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+            <div color="red" *ngIf="password.errors['required']" class="erreur">&nbsp; Mot de
+              passe obligatoire</div>
+            <div *ngIf="password.errors['minlength']" class="err">
+              &nbsp; Le mot de passe doit contenir au mois 6 caracters
+            </div>
+          </div>
+          <style>
+            .erreur {
+              color: #000;
+              font-size: 1em;
+              border-left: 5px solid red;
+              box-shadow: rgba(186, 206, 205, 0.12) 0px 2px 4px 0px, rgba(211, 220, 220, 0.855) 0px 2px 16px 0px;
+              margin-bottom: 2%;
+              background-color: white;
+              height: 25px;
+            }
+          </style>
+          <div class="form-floating mb-3">
+            <input type="text" name="emailOrNumero" [(ngModel)]="form.emailOrNumero" required
+              #emailOrNumero="ngModel" [ngClass]="{ 'is-invalid': f.submitted && emailOrNumero.errors }"
+              class="form-control" id="floatingInput" placeholder="Email ou Numero">
+            <label for="floatingInput">Votre Email ou Numero</label>
+          </div>
+          <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Mot de Passe" name="password"
+              [(ngModel)]="form.password" required minlength="6" #password="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
+            <label for="floatingPassword">Mot de passe</label>
+          </div>
+          <button type="submit" class=" btn-primary py-3 w-100 mb-4">Se connecter</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

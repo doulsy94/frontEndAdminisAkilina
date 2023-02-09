@@ -63,3 +63,6 @@ table {
     color: #e6e7e8;
   }
   
+  audio {
+    margin-top: 11px !important;
+}
