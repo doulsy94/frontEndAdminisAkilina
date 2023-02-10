@@ -1,7 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../_services/auth.service';
+import Swal from 'sweetalert2';
 import { IdeeService } from '../_services/idee.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UsersService } from '../_services/users.service';
@@ -38,11 +37,17 @@ export class IdeeComponent implements OnInit{
   menuBureau: boolean = true;
   menuMobile: boolean = false;
   user: any;
+  id_user: any
+  searchText: any;
+  responsive= true
+
 
   constructor(
     public breakpointObserver: BreakpointObserver,
     private ideeService: IdeeService,
     private usersService: UsersService,
+    private storageService: TokenStorageService,
+
    ) { }
 
    actualise(): void {
@@ -57,6 +62,9 @@ export class IdeeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.id_user = this.storageService.getUser().id_user;
+
 
      //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
      this.ideeService.listerIdee().subscribe(data => {
@@ -80,6 +88,59 @@ export class IdeeComponent implements OnInit{
     });
 
   }
+
+  supprimer(id_idee: any) {
+    this.popUp(id_idee);
+  }
+  
+  popUp(id_idee: any) {
+    Swal.fire({
+      position: 'center',
+  
+      text: 'Voulez vous vraiment supprimer ?',
+      icon: 'warning',
+      heightAuto: false,
+      showConfirmButton: true,
+      confirmButtonText: 'Oui',
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Non',
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ideeService
+          .supprimerIdee(id_idee, this.id_user)
+          .subscribe((data) => {
+            //location.reload();
+            console.log('okkk');
+          });
+  
+        Swal.fire({
+          position: 'center',
+  
+          text: 'Idee supprimer avec success!!',
+          icon: 'success',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#0857b5',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.reloadPage();
+          }
+        });
+      }
+    });
+  }
+  
+  reloadPage(): void {
+    window.location.reload();
+  }
+  
   afficheMenuMobile() {
     this.menuBureau = true;
     this.menuMobile = false;

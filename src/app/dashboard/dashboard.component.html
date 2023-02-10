@@ -29,14 +29,14 @@
         >
           <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
+        <!-- <form class="d-none d-md-flex ms-4">
           <input
             class="form-control border-0"
             type="search"
-            placeholder="Search"
+            placeholder="Rechercher..."
           />
           <i class="bx bx-search icon" style="font-size: 35px"></i>
-        </form>
+        </form> -->
         <div class="d-flex justify-content-end w-100">
           <app-navbar></app-navbar>
         </div>
@@ -112,16 +112,133 @@
       </div>
 
       <div
+        class="row re"
+        style="margin-left: auto; margin-right: auto; margin-top: 10px"
+      >
+        <div class="col d-flex justify-content-between">
+          <!-- Button trigger modal -->
+          <button
+            type="submit"
+            class="ajout"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            style="height: 40px"
+          >
+            Ajouter Ministere
+          </button>
+
+          <button>Ajouter Gros Mots</button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Création de Ministere
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="form">
+                    <div class="input-box">
+                      <Label>Ajouter image *</Label>
+                      <input
+                        type="file"
+                        placeholder="Logo.jpg"
+                        id="logo"
+                        name="image"
+                        (change)="recuperationImageMinistere($event)"
+                        class="form-control"
+                        accept="image/png, image/jpeg, image/jpg"
+                        required
+                      />
+                    </div>
+                    <div class="input-box">
+                      <span> Libelle *</span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="libelle"
+                        id="libelle"
+                        placeholder="Donner le nom du ministère"
+                        [(ngModel)]="libelle"
+                        required
+                      />
+                    </div>
+                    <div class="input-box">
+                      <span> Description *</span>
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        name="description"
+                        id="description"
+                        placeholder="Donner une petite description du ministère"
+                        [(ngModel)]="description"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    (click)="ajouterMinistere()"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
         class="container-fluid pt-4 px-4"
         style="margin-left: -2.2%; width: 104%"
       >
         <div class="row g-4">
           <div class="col-sm-12 col-xl-8">
             <div class="bg-light text-center rounded p-4">
-              <div
-                class="d-flex align-items-center justify-content-between mb-4"
-              >
-                <h6 class="mb-0 py-1">La liste des ministères</h6>
+              <div class="d-flex justify-content-between">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <h6 class="mb-0 py-1">La liste des ministères</h6>
+                </div>
+                <div class="col-md-4">
+                  <form class="d-none d-md-flex ms-4">
+                    <i class="bx bx-search icon fa-2x py-1"></i>
+                    <input
+                      class="form-control border-0 border-2 border-start border-end border-alert"
+                      type="search"
+                      placeholder="Rechercher..."
+                      [(ngModel)]="searchText"
+                    />
+                  </form>
+                </div>
               </div>
               <div class="header_fixed py-2">
                 <table>
@@ -137,23 +254,43 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let minist of ministere; let i = index">
+                    <tr
+                      *ngFor="
+                        let minist of ministere
+                          | paginate : { itemsPerPage: 3, currentPage: p }
+                          | filter : searchText;
+                        let i = index
+                      "
+                    >
                       <td>{{ i + 1 }}</td>
                       <td><img src="{{ minist.image }}" alt="" /></td>
                       <td>{{ minist.libelle }}</td>
                       <td>{{ minist.description }}</td>
                       <td>
-                        <div class="col">
+                        <div class="col" style="display: flex">
                           <i
+                            class="bi bi-pencil-square i"
+                            style="color: rgb(58, 190, 31); font-size: 20px"
+                          >
+                          </i>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                          <i
+                            (click)="supprimer(minist.id_ministere)"
                             class="bi bi-trash3"
                             style="color: red; font-size: 20px"
-                          ></i>
+                          >
+                          </i>
                         </div>
                       </td>
                       <!-- <td><button>View</button></td> -->
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="pag">
+                <pagination-controls
+                  (pageChange)="p = $event" nextLabel="Suivants" previousLabel="Précedents" [responsive]="responsive"
+                ></pagination-controls>
               </div>
             </div>
           </div>
@@ -265,13 +402,12 @@
         style="margin-left: -2.2%; width: 104%"
       >
         <div class="row g-4">
-          <div class="col-sm-12 col-xl-8">
+          <div class="col-sm-12 col-xl-12">
             <div class="bg-light text-center rounded p-4">
+              <h6 class="mb-0 py-1">La liste des utilisateurs</h6>
               <div
                 class="d-flex align-items-center justify-content-between mb-4"
               >
-                <h6 class="mb-0 py-1">La liste des utilisateurs</h6>
-
                 <div class="header_fixed py-2">
                   <table>
                     <thead>
@@ -286,7 +422,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let us of users; let i = index">
+                      <tr
+                        *ngFor="
+                          let us of users| filter : searchText;
+                          let i = index
+                        "
+                      >
+                        <!-- | paginate : { itemsPerPage: 5, currentPage: p } -->
                         <td>{{ i + 1 }}</td>
                         <td><img src="{{ us.imageuser }}" alt="" /></td>
                         <td>{{ us.username }}</td>
@@ -299,12 +441,17 @@
                   </table>
                 </div>
               </div>
+              <!-- <div class="pagm">
+                <pagination-controls
+                (pageChange)="p1 = $event" nextLabel="Suivants" previousLabel="Précedents" [responsive]="responsive"
+                ></pagination-controls>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- <app-footer></app-footer> -->
+      <app-footer></app-footer>
     </main>
   </div>
 </div>

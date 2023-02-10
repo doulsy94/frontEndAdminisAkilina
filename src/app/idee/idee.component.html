@@ -28,14 +28,7 @@
         >
           <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
-          <input
-            class="form-control border-0"
-            type="search"
-            placeholder="Search"
-          />
-          <i class="bx bx-search icon" style="font-size: 35px"></i>
-        </form>
+
         <div class="d-flex justify-content-end w-100">
           <app-navbar></app-navbar>
         </div>
@@ -56,7 +49,8 @@
                     <input
                       class="form-control border-0 border-2 border-start border-end border-alert"
                       type="search"
-                      placeholder="rechercher"
+                      placeholder="Rechercher..."
+                      [(ngModel)]="searchText"
                     />
                   </form>
                 </div>
@@ -77,16 +71,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let idee of idee; let i = index">
+                      <tr
+                        *ngFor="
+                          let idee of idee
+                            | paginate : { itemsPerPage: 8, currentPage: p }
+                            | filter : searchText;
+                          let i = index
+                        "
+                      >
                         <td>{{ i + 1 }}</td>
                         <td>{{ idee.contenu_idee }}</td>
-                        <td>{{ idee.date | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{ idee.date | date : "dd/MM/yyyy HH:mm:ss" }}</td>
                         <td>{{ idee.dislikes }}</td>
                         <td>{{ idee.likes }}</td>
                         <td>{{ idee.ministere.libelle }}</td>
                         <td>{{ idee.user.username }}</td>
                         <td>
-                          <div class="col">
+                          <div class="col" (click)="supprimer(idee.id_idee)">
                             <i
                               class="bi bi-trash3"
                               style="color: red; font-size: 20px"
@@ -97,14 +98,20 @@
                     </tbody>
                   </table>
                 </div>
-                <!-- <pagination-controls (pageChange)="p =$event"></pagination-controls> -->
+                <div class="pag">
+                  <pagination-controls
+                    (pageChange)="p = $event"
+                    nextLabel="Suivants"
+                    previousLabel="Précedents"
+                    [responsive]="responsive"
+                  ></pagination-controls>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <app-footer></app-footer> -->
+      <app-footer></app-footer>
     </main>
   </div>
-  
 </div>

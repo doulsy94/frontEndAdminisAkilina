@@ -1,8 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_services/auth.service';
-import { IdeeService } from '../_services/idee.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UsersService } from '../_services/users.service';
 
@@ -55,7 +53,7 @@ export class NavbarComponent  implements OnInit {
   logout(): void{
     this.tokenStorage.signOut();
     this.route.navigateByUrl('connexion')
-    window.location.reload();
+ 
   }
 
 }

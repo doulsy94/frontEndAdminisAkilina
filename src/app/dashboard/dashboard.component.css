@@ -14,8 +14,8 @@ table {
   .header_fixed thead th {
     position: sticky;
     top: 0;
-    background-color: #707070;
-    color: #e6e7e8;
+    background-color: #00C4FF;
+    color: white;
     font-size: 15px;
   }
   
@@ -42,7 +42,7 @@ table {
   }
   
   tr:hover td {
-    color: #44b478;
+    color: black;
     cursor: pointer;
     background-color: #ffffff;
   }
@@ -51,17 +51,26 @@ table {
     border: none;
     padding: 7px 20px;
     border-radius: 20px;
-    background-color: #707070;
-    color: #e6e7e8;
+    background-color: #00C4FF;
+    color: white;
   }
   button {
     border: none;
     padding: 7px ;
     border-radius: 20px;
-    background-color: #707070;
-    color: #e6e7e8;
+    background-color: #00C4FF;
+    color: white;
   }
   
   .bg-light.text-center.rounded.p-4 {
     margin-bottom: 30px;
+}
+
+.pag {
+    margin-top: 4px;
+}
+
+  .pagm {
+    margin-top: 5px;
+    
 }

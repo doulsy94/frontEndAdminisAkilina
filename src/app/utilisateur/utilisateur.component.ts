@@ -1,5 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { UsersService } from '../_services/users.service';
 
 @Component({
@@ -13,6 +14,9 @@ export class UtilisateurComponent implements OnInit {
   menuBureau: boolean = true;
   menuMobile: boolean = false;
   user: any;
+  searchText: any;
+  responsive= true
+
 
   constructor(
     public breakpointObserver: BreakpointObserver,
@@ -47,6 +51,60 @@ export class UtilisateurComponent implements OnInit {
     });
 
   }
+
+
+  supprimer(id_user: any) {
+    this.popUp(id_user);
+  }
+  
+  popUp(id_user: any) {
+    Swal.fire({
+      position: 'center',
+  
+      text: 'Voulez vous vraiment supprimer ?',
+      icon: 'warning',
+      heightAuto: false,
+      showConfirmButton: true,
+      confirmButtonText: 'Oui',
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Non',
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usersService
+          .supprimerUsers(id_user)
+          .subscribe((data) => {
+            //location.reload();
+            console.log('okkk');
+          });
+  
+        Swal.fire({
+          position: 'center',
+  
+          text: 'Utilisateur supprimer avec success!!',
+          icon: 'success',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#0857b5',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.reloadPage();
+          }
+        });
+      }
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+
   afficheMenuMobile() {
     this.menuBureau = true;
     this.menuMobile = false;

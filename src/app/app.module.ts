@@ -10,9 +10,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
-import { IdeeComponent } from './idee/idee.component';
 import { CommentaireComponent } from './commentaire/commentaire.component';
 import { VocalComponent } from './vocal/vocal.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { IdeeComponent } from './idee/idee.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { VocalComponent } from './vocal/vocal.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-  
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

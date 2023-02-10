@@ -1,7 +1,9 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { CommentaireService } from '../_services/commentaire.service';
 import { IdeeService } from '../_services/idee.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 import { UsersService } from '../_services/users.service';
 
 @Component({
@@ -13,6 +15,7 @@ export class CommentaireComponent implements OnInit{
   users: any;
   idee: any;
   p:any;
+  searchText: any;
   menuBureau: boolean = true;
   menuMobile: boolean = false;
   user: any;
@@ -20,12 +23,16 @@ export class CommentaireComponent implements OnInit{
   comment: any
   contenu: any
   imageuser: any
+  id_user: any
+  responsive= true
+
 
   constructor(
     public breakpointObserver: BreakpointObserver,
     private ideeService: IdeeService,
     private usersService: UsersService,
     private commentaire: CommentaireService,
+    private storageService: TokenStorageService,
 
    ) { }
 
@@ -42,6 +49,9 @@ export class CommentaireComponent implements OnInit{
 
   
   ngOnInit(): void {
+
+    this.id_user = this.storageService.getUser().id_user;
+
 
     this.commentaire
     .listerCommentaire()
@@ -73,6 +83,59 @@ export class CommentaireComponent implements OnInit{
    });
 
  }
+
+ supprimer(id_commentaire: any) {
+  this.popUp(id_commentaire);
+}
+
+popUp(id_commentaire: any) {
+  Swal.fire({
+    position: 'center',
+
+    text: 'Voulez vous vraiment supprimer ?',
+    icon: 'warning',
+    heightAuto: false,
+    showConfirmButton: true,
+    confirmButtonText: 'Oui',
+    confirmButtonColor: '#0857b5',
+    showDenyButton: false,
+    showCancelButton: true,
+    cancelButtonText: 'Non',
+    allowOutsideClick: false,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.commentaire
+        .supprimerCommentaire(id_commentaire, this.id_user)
+        .subscribe((data) => {
+          //location.reload();
+          console.log('okkk');
+        });
+
+      Swal.fire({
+        position: 'center',
+
+        text: 'Commentaire supprimer avec success!!',
+        icon: 'success',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#0857b5',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.reloadPage();
+        }
+      });
+    }
+  });
+}
+
+reloadPage(): void {
+  window.location.reload();
+}
+
  afficheMenuMobile() {
    this.menuBureau = true;
    this.menuMobile = false;

@@ -9,7 +9,8 @@ import { TokenStorageService } from './token-storage.service';
 export class PermissionService implements CanActivate {
   constructor(
     private tokenStorage: TokenStorageService,
-    private route: Router) {}
+    private route: Router
+    ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
