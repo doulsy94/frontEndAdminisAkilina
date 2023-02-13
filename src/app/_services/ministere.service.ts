@@ -65,22 +65,22 @@ export class MinistereService {
     libelle: any,
     description: any
   ): Observable<any> {
-    const data: FormData = new FormData();
-    const ministere = [
+    const ministere :FormData = new FormData();
+    let min = [
       {
-        libelle: libelle,
-        description: description,
-      },
+        "libelle": libelle,
+        "description": description
+      }
     ];
-    data.append('file', file);
-    data.append(
-      'ministere',
-      JSON.stringify(ministere).slice(
-        1,
-        JSON.stringify(ministere).lastIndexOf(']')
-      )
+
+    ministere.append('file', file)
+
+  console.log("libelle"+libelle)
+  console.log("description"+description)
+     ministere.append('ministere', JSON.stringify(min).slice(1,JSON.stringify(min).lastIndexOf(']')) ) 
+   
+    return this.http.post(`http://localhost:8080/api/ministere/modifier/${id_ministere}`, ministere
     );
-    return this.http.put(`${AUTH_API}/modifier/${id_ministere}`, data);
   }
 
   //SUPRIMER MINISTERE

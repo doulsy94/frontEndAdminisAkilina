@@ -7,7 +7,7 @@
       style="height: 100vh"
     >
       <app-menu></app-menu>
-      <!-- </div> -->
+
     </div>
     <main
       class="col"
@@ -15,7 +15,7 @@
     >
       <nav
         class="bg-danger navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0"
-        style=""
+
       >
         <h1 style="width: 20px"></h1>
         <a
@@ -29,14 +29,7 @@
         >
           <i class="fa fa-bars"></i>
         </a>
-        <!-- <form class="d-none d-md-flex ms-4">
-          <input
-            class="form-control border-0"
-            type="search"
-            placeholder="Rechercher..."
-          />
-          <i class="bx bx-search icon" style="font-size: 35px"></i>
-        </form> -->
+
         <div class="d-flex justify-content-end w-100">
           <app-navbar></app-navbar>
         </div>
@@ -127,7 +120,171 @@
             Ajouter Ministere
           </button>
 
-          <button>Ajouter Gros Mots</button>
+          <button
+            type="submit"
+            class="ajout"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop1"
+            style="height: 40px"
+          >
+            Ajouter Gros Mots
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="staticBackdrop1"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Ajout de Gros Mots
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="form">
+                    <div class="input-box">
+                      <Label>Mot *</Label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="word"
+                        id="word"
+                        placeholder="Entrer le Gros mots"
+                        [(ngModel)]="word"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    (click)="ajouterGrosMots()"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+             <!-- Modal de modif -->
+             <div
+             class="modal fade"
+             id="staticBackdrop2"
+             data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1"
+             aria-labelledby="staticBackdropLabel"
+             aria-hidden="true"
+           >
+             <div class="modal-dialog">
+               <div class="modal-content">
+                <form
+                #update="ngForm"
+                (ngSubmit)="popUpModif(id_ministere, update.value.image, update.value.libelle, update.value.description)"
+              >
+                 <div class="modal-header">
+                   <h5 class="modal-title" id="staticBackdropLabel">
+                     Modification de Ministere
+                   </h5>
+                   <button
+                     type="button"
+                     class="btn-close"
+                     data-bs-dismiss="modal"
+                     aria-label="Close"
+                   ></button>
+                 </div>
+                 <div class="modal-body">
+                  <div class="form-group">
+                  
+                     <div class="input-box">
+                       <Label>Ajouter image *</Label>
+                       <input
+                         type="file"
+                         placeholder="Logo.jpg"
+                         id="image"
+                         name="image"
+                         (change)="recuperationImageMinistere($event)"
+                         class="form-control"
+                         accept="image/png, image/jpeg, image/jpg"
+                         ngModel="{{ image }}"
+                         required
+                       />
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-box">
+                       <span> Libelle *</span>
+                       <input
+                         type="text"
+                         class="form-control"
+                         name="libelle"
+                         id="libelle"
+                         placeholder="Donner le nom du ministère"
+                      
+                         ngModel="{{ libelle }}"
+                         
+                         required
+                       />
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-box">
+                       <span> Description *</span>
+                       <textarea
+                         type="text"
+                         class="form-control"
+                         name="description"
+                         id="description"
+                         placeholder="Donner une petite description du ministère"
+                      
+                         ngModel="{{ description }}"
+                         required
+                       ></textarea>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="modal-footer">
+                   <button
+                     type="button"
+                     class="btn-secondary"
+                     data-bs-dismiss="modal"
+                   >
+                     Annuler
+                   </button>
+                   <button
+                     type="submit"
+                     class="btn-primary"
+                   >
+                     Actualiser
+                   </button>
+                 </div>
+                </form>
+               </div>
+             </div>
+           </div>
 
           <!-- Modal -->
           <div
@@ -206,7 +363,7 @@
                     class="btn-primary"
                     (click)="ajouterMinistere()"
                   >
-                    Ajouter
+                    Ajouter 
                   </button>
                 </div>
               </div>
@@ -257,7 +414,7 @@
                     <tr
                       *ngFor="
                         let minist of ministere
-                          | paginate : { itemsPerPage: 3, currentPage: p }
+                          | paginate : { itemsPerPage: 6, currentPage: p }
                           | filter : searchText;
                         let i = index
                       "
@@ -269,6 +426,9 @@
                       <td>
                         <div class="col" style="display: flex">
                           <i
+                          data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop2"
+                         (click)="lireMinistereById(minist.id_ministere)"
                             class="bi bi-pencil-square i"
                             style="color: rgb(58, 190, 31); font-size: 20px"
                           >
@@ -289,7 +449,10 @@
               </div>
               <div class="pag">
                 <pagination-controls
-                  (pageChange)="p = $event" nextLabel="Suivants" previousLabel="Précedents" [responsive]="responsive"
+                  (pageChange)="p = $event"
+                  nextLabel="Suivants"
+                  previousLabel="Précedents"
+                  [responsive]="responsive"
                 ></pagination-controls>
               </div>
             </div>
@@ -300,84 +463,19 @@
                 <div
                   class="d-flex align-items-center justify-content-between mb-2"
                 >
-                  <h6 class="mb-0">Utilisateur recents</h6>
-                  <a href="">Voir plus</a>
+                  <h6 class="mb-0">Liste des gros mots</h6>
                 </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
-                    </div>
-                  </div>
-                </div>
+
                 <div class="d-flex align-items-center border-bottom py-2">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center pt-3 py-3">
-                  <img
-                    class="rounded-circle flex-shrink-0"
-                    src="../../assets/logo8.png"
-                    alt=""
-                    style="width: 40px; height: 40px"
-                  />
-                  <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-0">Jhon Doe</h6>
+                  <div class="w-100 ms-3" >
+                    <div class="d-flex w-100 justify-content-between" *ngFor="let word of word">
+                      <h6 class="mb-0">{{word.word}}</h6>
+                      <i
+                      (click)="supprimerGro(word.id)"
+                      class="bi bi-trash3"
+                      style="color: red; font-size: 20px"
+                    >
+                    </i>
                     </div>
                   </div>
                 </div>
@@ -387,17 +485,7 @@
         </div>
       </div>
 
-      <!-- <div class="d-flex align-items-center pt-3 py-3">
-                    <img class="rounded-circle flex-shrink-0" src="../../assets/logo8.png" alt=""
-                      style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                      </div>
-                    </div>
-                  </div> -->
-
-      <div
+      <!-- <div
         class="container-fluid pt-4 px-4"
         style="margin-left: -2.2%; width: 104%"
       >
@@ -418,7 +506,7 @@
                         <th>Numero</th>
                         <th>Email</th>
                         <th>Adresse</th>
-                        <!-- <th>Action</th> -->
+                      
                       </tr>
                     </thead>
                     <tbody>
@@ -428,28 +516,22 @@
                           let i = index
                         "
                       >
-                        <!-- | paginate : { itemsPerPage: 5, currentPage: p } -->
                         <td>{{ i + 1 }}</td>
                         <td><img src="{{ us.imageuser }}" alt="" /></td>
                         <td>{{ us.username }}</td>
                         <td>{{ us.numero }}</td>
                         <td>{{ us.email }}</td>
                         <td>{{ us.addresse }}</td>
-                        <!-- <td><button>View</button></td> -->
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <!-- <div class="pagm">
-                <pagination-controls
-                (pageChange)="p1 = $event" nextLabel="Suivants" previousLabel="Précedents" [responsive]="responsive"
-                ></pagination-controls>
-              </div> -->
+           
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <app-footer></app-footer>
     </main>
