@@ -65,21 +65,21 @@ export class MinistereService {
     libelle: any,
     description: any
   ): Observable<any> {
-    const ministere :FormData = new FormData();
-    let min = [
+    const data :FormData = new FormData();
+    const ministere = [
       {
         "libelle": libelle,
         "description": description
       }
     ];
 
-    ministere.append('file', file)
+    data.append('file', file)
 
   console.log("libelle"+libelle)
   console.log("description"+description)
-     ministere.append('ministere', JSON.stringify(min).slice(1,JSON.stringify(min).lastIndexOf(']')) ) 
+  data.append('ministere', JSON.stringify(ministere).slice(1,JSON.stringify(ministere).lastIndexOf(']')) ) 
    
-    return this.http.post(`http://localhost:8080/api/ministere/modifier/${id_ministere}`, ministere
+    return this.http.post(`http://localhost:8080/api/ministere/modifier/${id_ministere}`, data
     );
   }
 

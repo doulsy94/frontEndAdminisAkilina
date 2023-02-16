@@ -2,6 +2,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IdeeService } from '../_services/idee.service';
+import { MinistereService } from '../_services/ministere.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UsersService } from '../_services/users.service';
 
@@ -17,6 +18,14 @@ export class IdeeComponent implements OnInit{
 
    //VARIABLE CONTENANT LES INFORMATIONS DES IDEES RECUPERER
    users: any;
+
+   id_ministere:any
+
+   ideeFiltree= "Tout";
+
+   ministere: any;
+
+   libelle: any
 
 
   //DECLARATION DES DIFFERENTS ATTRIBUT DE LA TABLE IDEE
@@ -47,6 +56,8 @@ export class IdeeComponent implements OnInit{
     private ideeService: IdeeService,
     private usersService: UsersService,
     private storageService: TokenStorageService,
+    private ministereService: MinistereService,
+
 
    ) { }
 
@@ -63,15 +74,19 @@ export class IdeeComponent implements OnInit{
 
   ngOnInit(): void {
 
+      //METHODE PERMETTANT DE RECUPERER LA LISTE DES MINISTERE
+      this.ministereService.listerMinistere().subscribe((data) => {
+        this.ministere = data;
+        console.log(data);
+      });
+
     this.id_user = this.storageService.getUser().id_user;
 
 
-     //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
-     this.ideeService.listerIdee().subscribe(data => {
-      this.idee = data;     
-      console.log("data==================================================",JSON.stringify(this.idee));
-      console.log(data)
-    });
+    
+
+    
+
 
     this.breakpointObserver
     .observe(['(max-width: 767px)'])
@@ -146,6 +161,24 @@ export class IdeeComponent implements OnInit{
     this.menuMobile = false;
   }
 
+       //METHODE PERMETTANT DE FILTRER LA LISTE DES IDEES
+       ideeFiltre(){
+        console.log(this.ideeFiltree);
+        if(this.ideeFiltree == "Tout"){
+           //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
+     this.ideeService.listerIdee().subscribe(data => {
+      this.idee = data;     
+      console.log("data==================================================",JSON.stringify(this.idee));
+      console.log(data)
+    });
+        } else{
+        this.ideeService.lireIdeeParLibelleMinistere(this.ideeFiltree).subscribe(data => {
+         this.idee = data;     
+         console.log("data==================================================",JSON.stringify(this.idee));
+         console.log(data)
+       });
+     }
+    }
 }
 
 

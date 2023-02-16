@@ -258,7 +258,7 @@ export class DashboardComponent implements OnInit {
     console.log('id_ministere: ' + id_ministere);
 console.log("fffffffff: "+image)
     this.ministereService
-      .modifierMinistere(id_ministere, image, libelle, description)
+      .modifierMinistere(id_ministere, this.image, libelle, description)
       .subscribe((data) => {
         this.ministere1 = data;
         console.log('mmmmmm: ' + data);

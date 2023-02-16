@@ -37,6 +37,12 @@ export class IdeeService {
     );
   }
 
+  filtrerParIdMinistere(id_ministere: any): Observable<any>{
+    return this.http.get(
+      `${AUTH_API}/filtreIdeeParIdMinistere/${id_ministere}`
+    );
+  }
+
   //METHODE PERMETTANT DE DONNER LE NOMBRE TOTAL D' IDEE
   nombreMinistere(): Observable<any> {
     return this.http.get(`${AUTH_API}/afficher_idee_nombre`);

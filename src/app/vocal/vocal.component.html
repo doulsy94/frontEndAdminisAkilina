@@ -39,11 +39,22 @@
           <div class="col-sm-12">
             <div class="bg-light rounded p-4">
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <h3>La liste des vocaux</h3>
                 </div>
                 <div class="col-md-4">
-                  <form class="d-none d-md-flex ms-4">
+                  <div class="d-none d-md-flex ms-4">
+                  <select class="form-selec form-selec-md larger " aria-label=".form-selec-sm example" (change)="vocalFiltre()"   name="vocalFiltree"  [(ngModel)]="vocalFiltree">
+                    <option >Tout</option>
+                    <option *ngFor="let minist of ministere">
+                    {{minist.libelle}}
+                    </option>
+        
+                  </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-none d-md-flex ms-4">
                     <i class="bx bx-search icon fa-2x py-1"></i>
                     <input
                       class="form-control border-0 border-2 border-start border-end border-alert"
@@ -51,7 +62,7 @@
                       placeholder="Rechercher..."
                       [(ngModel)]="searchText"
                     />
-                  </form>
+                  </div>
                 </div>
               </div>
               <div class="chart-container py-2">
@@ -86,7 +97,7 @@
                             <a href="{{ vocal.fileName }}"> Download audio </a>
                           </audio>
                         </td>
-                        <td>{{ vocal.date | date : "dd/MM/yyyy HH:mm:ss" }}</td>
+                        <td>{{ vocal.dateCreation | date : "dd/MM/yyyy HH:mm:ss" }}</td>
                         <td>{{ vocal.ministere.libelle }}</td>
                         <td>{{ vocal.user.username }}</td>
                         <td>

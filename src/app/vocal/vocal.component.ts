@@ -1,6 +1,7 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { MinistereService } from '../_services/ministere.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UsersService } from '../_services/users.service';
 import { VocalService } from '../_services/vocal.service';
@@ -19,6 +20,9 @@ export class VocalComponent implements OnInit{
   vocal: any
   id_user: any
   responsive= true
+  vocalFiltree= "Tout";
+  ministere: any;
+
 
 
   constructor(
@@ -26,6 +30,8 @@ export class VocalComponent implements OnInit{
     private usersService: UsersService,
     private vocalService: VocalService,
     private storageService: TokenStorageService,
+    private ministereService: MinistereService,
+
 
    ) { }
 
@@ -42,15 +48,14 @@ export class VocalComponent implements OnInit{
 
   ngOnInit(): void {
 
+     //METHODE PERMETTANT DE RECUPERER LA LISTE DES MINISTERE
+     this.ministereService.listerMinistere().subscribe((data) => {
+      this.ministere = data;
+      console.log(data);
+    });
+
     this.id_user = this.storageService.getUser().id_user;
 
-
-       //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
-       this.vocalService.listerVocal().subscribe(data => {
-        this.vocal = data;     
-        console.log("data==================================================",JSON.stringify(this.vocal));
-        console.log(data)
-      });
 
     this.breakpointObserver
     .observe(['(max-width: 767px)'])
@@ -124,5 +129,26 @@ export class VocalComponent implements OnInit{
     this.menuBureau = true;
     this.menuMobile = false;
   }
+
+  
+       //METHODE PERMETTANT DE FILTRER LA LISTE DES IDEES
+       vocalFiltre(){
+        console.log(this.vocalFiltree);
+        if(this.vocalFiltree == "Tout"){
+      //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
+      this.vocalService.listerVocal().subscribe(data => {
+        this.vocal = data;  
+           
+        console.log("data==================================================",JSON.stringify(this.vocal));
+        console.log(data)
+      });
+        } else{
+        this.vocalService.lireVocalParLibelleMinistere(this.vocalFiltree).subscribe(data => {
+         this.vocal= data;     
+         console.log("data==================================================",JSON.stringify(this.vocal));
+         console.log(data)
+       });
+     }
+    }
 
 }
