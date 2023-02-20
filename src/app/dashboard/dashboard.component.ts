@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   responsive = true;
   word: any;
   id_ministere: any;
+  m: number=1
 
   //VARIABLE CONTENANT LES INFORMATIONS DES MINISTERES RECUPERER
   ministere: any;

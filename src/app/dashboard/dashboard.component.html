@@ -156,7 +156,7 @@
                 <div class="modal-body">
                   <div class="form">
                     <div class="input-box">
-                      <Label>Mot *</Label>
+                      <Label>Mot <span style="color: red;">*</span></Label>
                       <input
                         type="text"
                         class="form-control"
@@ -220,7 +220,7 @@
                   <div class="form-group">
                   
                      <div class="input-box">
-                       <Label>Ajouter image *</Label>
+                       <Label>Ajouter image <span style="color: red;">*</span></Label>
                        <input
                          type="file"
                          placeholder="Logo.jpg"
@@ -236,7 +236,7 @@
                   </div>
                   <div class="form-group">
                      <div class="input-box">
-                       <span> Libelle *</span>
+                       <span> Libelle <span style="color: red;">*</span></span>
                        <input
                          type="text"
                          class="form-control"
@@ -252,7 +252,7 @@
                   </div>
                   <div class="form-group">
                      <div class="input-box">
-                       <span> Description *</span>
+                       <span> Description <span style="color: red;">*</span></span>
                        <textarea
                          type="text"
                          class="form-control"
@@ -312,7 +312,7 @@
                 <div class="modal-body">
                   <div class="form">
                     <div class="input-box">
-                      <Label>Ajouter image *</Label>
+                      <Label>Ajouter image <span style="color: red;">*</span></Label>
                       <input
                         type="file"
                         placeholder="Logo.jpg"
@@ -325,7 +325,7 @@
                       />
                     </div>
                     <div class="input-box">
-                      <span> Libelle *</span>
+                      <Label> Libelle<span style="color: red;">*</span></Label>
                       <input
                         type="text"
                         class="form-control"
@@ -337,7 +337,7 @@
                       />
                     </div>
                     <div class="input-box">
-                      <span> Description *</span>
+                      <Label> Description <span style="color: red;">*</span></Label>
                       <textarea
                         type="text"
                         class="form-control"
@@ -468,7 +468,7 @@
 
                 <div class="d-flex align-items-center border-bottom py-2">
                   <div class="w-100 ms-3" >
-                    <div class="d-flex w-100 justify-content-between" *ngFor="let word of word">
+                    <div class="d-flex w-100 justify-content-between" *ngFor="let word of word | paginate : { itemsPerPage: 12, currentPage: m , id:'test1'}">
                       <h6 class="mb-0">{{word.word}}</h6>
                       <i
                       (click)="supprimerGro(word.id)"
@@ -479,59 +479,20 @@
                     </div>
                   </div>
                 </div>
+                <div class="pag">
+                  <pagination-controls
+                    (pageChange)="m = $event"
+                    nextLabel="Suivants" 
+                    id="test1"
+                    previousLabel="Précedents"
+                    [responsive]="responsive"
+                  ></pagination-controls>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- <div
-        class="container-fluid pt-4 px-4"
-        style="margin-left: -2.2%; width: 104%"
-      >
-        <div class="row g-4">
-          <div class="col-sm-12 col-xl-12">
-            <div class="bg-light text-center rounded p-4">
-              <h6 class="mb-0 py-1">La liste des utilisateurs</h6>
-              <div
-                class="d-flex align-items-center justify-content-between mb-4"
-              >
-                <div class="header_fixed py-2">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>No.</th>
-                        <th>Image</th>
-                        <th>Username</th>
-                        <th>Numero</th>
-                        <th>Email</th>
-                        <th>Adresse</th>
-                      
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        *ngFor="
-                          let us of users| filter : searchText;
-                          let i = index
-                        "
-                      >
-                        <td>{{ i + 1 }}</td>
-                        <td><img src="{{ us.imageuser }}" alt="" /></td>
-                        <td>{{ us.username }}</td>
-                        <td>{{ us.numero }}</td>
-                        <td>{{ us.email }}</td>
-                        <td>{{ us.addresse }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-           
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <app-footer></app-footer>
     </main>

@@ -12,6 +12,8 @@ import { UsersService } from '../_services/users.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent  implements OnInit {
+  responsive=true
+  n: number=1
   user: any
   imageuser: any
   username: any

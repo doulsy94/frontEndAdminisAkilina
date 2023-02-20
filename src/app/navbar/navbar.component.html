@@ -7,7 +7,7 @@
     <div
       class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
     >
-    <div href="#" class="dropdown-item"  *ngFor="let notif1 of notif">
+    <div href="#" class="dropdown-item"  *ngFor="let notif1 of notif  | paginate : { itemsPerPage: 5, currentPage: n, id:'test' }">
       <div class="d-flex align-items-center">
         <img
           class="rounded-circle"
@@ -19,11 +19,23 @@
           <h6 class="fw-normal mb-0">{{notif1.createur}} vient de publier dans le {{notif1.ministere}}</h6>
           <small>{{ notif1.datenotif | date: 'dd/MM/yyyy HH:mm:ss' }}</small>
         </div>
-      
+       
       </div>
+    
       <hr class="dropdown-divider" />
+
+    
+
     </div>
-     
+    <div class="pag">
+      <pagination-controls
+      id="test"
+        (pageChange)="n = $event"
+        nextLabel="Suivants"
+        previousLabel="Précedents"
+        [responsive]="responsive"
+      ></pagination-controls>
+    </div>
    
     </div>
   </div>
