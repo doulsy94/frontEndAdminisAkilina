@@ -42,7 +42,7 @@ export class IdeeComponent implements OnInit{
   addresse: any;
 
 
-  p:any;
+  p:number=1;
   menuBureau: boolean = true;
   menuMobile: boolean = false;
   user: any;
@@ -164,7 +164,7 @@ export class IdeeComponent implements OnInit{
        //METHODE PERMETTANT DE FILTRER LA LISTE DES IDEES
        ideeFiltre(){
         console.log(this.ideeFiltree);
-        if(this.ideeFiltree == "Tout"){
+        if(this.ideeFiltree == "Tout" ){
            //METHODE PERMETTANT DE RECUPERER LA LISTE DES IDEES
      this.ideeService.listerIdee().subscribe(data => {
       this.idee = data;     
