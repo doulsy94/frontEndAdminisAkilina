@@ -261,7 +261,13 @@ console.log("fffffffff: "+image)
     this.ministereService
       .modifierMinistere(id_ministere, this.image, libelle, description)
       .subscribe((data) => {
-        this.ministere1 = data;
+        this.image = data.image;
+        console.log(image)
+        this.libelle = data.libelle;
+        console.log(libelle)
+        this.description = data.description;
+        console.log(description)
+        //this.ministere1 = data;
         console.log('mmmmmm: ' + data);
       });
 

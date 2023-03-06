@@ -79,7 +79,7 @@ export class MinistereService {
   console.log("description"+description)
   data.append('ministere', JSON.stringify(ministere).slice(1,JSON.stringify(ministere).lastIndexOf(']')) ) 
    
-    return this.http.post(`http://localhost:8080/api/ministere/modifier/${id_ministere}`, data
+    return this.http.put(`http://localhost:8080/api/ministere/modifier/${id_ministere}`, data
     );
   }
 
